@@ -1,0 +1,24 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "homework #13",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burnsandrew88/FriendFinder.git"
+  },
+  "author": "Andrew Burns",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/burnsandrew88/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/burnsandrew88/FriendFinder#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  }
+}
