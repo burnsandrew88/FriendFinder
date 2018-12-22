@@ -14,6 +14,11 @@
         crossorigin="anonymous">
     <!-- Google Fonts CDN Link -->
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
+    <!--Javascript and JQuery-->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
     
 </head>
 
@@ -161,7 +166,7 @@
                 </div>
                 <div class="modal-body">
                     <h2 id="bestFriend"></h2>
-                    <img id="bestFriendPhoto" src="#">
+                    <img id="bestFriendPhoto" src=""alt="" height="350" width="350">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -177,11 +182,8 @@
             </div>
         </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
+   
+
 
 </body>
 
@@ -199,8 +201,8 @@
         }
         if(accepted === true){
             var newUser = {
-                name: $("#friendName").val().trim(),
-                picture: $("#Image").val().trim(),
+                friendName: $("#friendName").val().trim(),
+                Image: $("#Image").val().trim(),
                 scores: [
                     $("#Q1").val(),
                     $("#Q2").val(),
@@ -220,10 +222,10 @@
     
 
             // Post call
-            $.post("/api/friends", newUser, function(data){
-                $("#bestFriend").text(data.friendName);
+            var currentURL = window.location.origin;
+            $.post(currentURL + "/api/friends", newUser, function(data){
+                $("#bestFriend").html(data.friendName);
                 $("#bestFriendPhoto").attr("src", data.Image);
-                $("#choosenFriendModal").modal("toggle");
             });
         } else {
             alert("Survey is incomplete!");

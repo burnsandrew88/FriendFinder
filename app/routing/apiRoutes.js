@@ -1,10 +1,10 @@
 
 
-var friendsData = require("../data/friends")
+var friends = require("../data/friends")
 
 module.exports = function(app){
     app.get("/api/friends", function(req,res){
-        res.json(friendsData);
+        res.json(friends);
     });
     app.post("/api/friends", function(req,res){
         res.json(req.body.scores);
@@ -12,31 +12,32 @@ module.exports = function(app){
     // Take in the user details (name, picture, answers)
     var newUser = req.body;
     console.log(newUser);
+    var userResponse = newUser.scores;
+    var match = {
+        friendName: "",
+        Image: "",
+        difference: 500
+    };
 
-    for (var i = 0; i < newUser.scores.length;i++){
-        newUser.scores[i] = parseInt(newUser.scores[i]);
-    }
-    // establish how to choose between chosen friend and total difference between user and arry of friends 
-    var chosenFriendIndex = 0;
-    var minimumDifference = 40;
+    
 
-    for (var i = 0; i < friendsData.length; i++){
+    for (var i = 0; i < friends.length; i++){
         var totalDifference = 0;
-        for(var z = 0; z < friendsData[i].scores.length; z++ ){
-                var difference = Math.abs(newUser.scores[z]- friendsData[i].scores[z]);
-                totalDifference += difference;
+        for(var z = 0; z < userResponse.length; z++ ){
+                totalDifference += Math.abs(friends[i].scores[z]- userResponse[z]);
         }
 
-        if(totalDifference < minimumDifference){
-            chosenFriendIndex = i;
-            minimumDifference = totalDifference
+        if(totalDifference <= match.difference){
+            match.friendName = friends[i].friendName;
+            match.Image = friends[i].Image;
+            match.difference = totalDifference
         }
     }
     // add our new user to arry
-    friendsData.push(newUser);
+    friends.push(newUser);
 
     // returns back to browser
 
-    res.json(friendsData[chosenFriendIndex]);
+    res.json(match);
     });
     };
